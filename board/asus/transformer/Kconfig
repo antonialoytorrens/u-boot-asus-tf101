@@ -1,0 +1,12 @@
+if TARGET_TRANSFORMER
+
+config SYS_BOARD
+	default "transformer"
+
+config SYS_VENDOR
+	default "asus"
+
+config SYS_CONFIG_NAME
+	default "transformer"
+
+endif

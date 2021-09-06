@@ -1,0 +1,6 @@
+TRANSFORMER BOARD
+M:	Svyatoslav Ryhel <clamor95@gmail.com>
+S:	Maintained
+F:	board/asus/transformer/
+F:	include/configs/transformer.h
+F:	configs/transformer_defconfig

@@ -197,6 +197,7 @@ dtb-$(CONFIG_ARCH_TEGRA) += tegra20-harmony.dtb \
 	tegra30-cardhu.dtb \
 	tegra30-colibri.dtb \
 	tegra30-tec-ng.dtb \
+	tegra30-transformer.dtb \
 	tegra114-dalmore.dtb \
 	tegra124-apalis.dtb \
 	tegra124-jetson-tk1.dtb \
