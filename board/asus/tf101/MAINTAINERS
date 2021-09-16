@@ -1,0 +1,6 @@
+TF101 BOARD
+M:	Svyatoslav Ryhel <clamor95@gmail.com>
+S:	Maintained
+F:	board/asus/tf101/
+F:	include/configs/tf101.h
+F:	configs/tf101_defconfig

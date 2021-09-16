@@ -1,0 +1,12 @@
+if TARGET_TF101
+
+config SYS_BOARD
+	default "tf101"
+
+config SYS_VENDOR
+	default "asus"
+
+config SYS_CONFIG_NAME
+	default "tf101"
+
+endif

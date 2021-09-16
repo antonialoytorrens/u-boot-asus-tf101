@@ -189,6 +189,7 @@ dtb-$(CONFIG_ARCH_TEGRA) += tegra20-harmony.dtb \
 	tegra20-plutux.dtb \
 	tegra20-seaboard.dtb \
 	tegra20-tec.dtb \
+	tegra20-tf101.dtb \
 	tegra20-trimslice.dtb \
 	tegra20-ventana.dtb \
 	tegra20-colibri.dtb \
