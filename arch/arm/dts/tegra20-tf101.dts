@@ -28,6 +28,33 @@
 		reg = <0x00000000 0x40000000>;
 	};
 
+	host1x@50000000 {
+		status = "okay";
+		dc@54200000 {
+			status = "okay";
+			rgb {
+				status = "okay";
+
+				nvidia,panel = <&panel>;
+
+				display-timings {
+					timing@0 {
+						clock-frequency = <71200000>;
+						hactive = <1280>;
+						vactive = <800>;
+						hfront-porch = <8>;
+						hback-porch = <18>;
+						hsync-len = <184>;
+						vsync-len = <3>;
+						vfront-porch = <4>;
+						vback-porch = <8>;
+						hsync-active = <1>;
+					};
+				};
+			};
+		};
+	};
+
 	pinmux@70000014 {
 		pinctrl-names = "default";
 		pinctrl-0 = <&state_default>;
@@ -516,6 +543,17 @@
 		non-removable;
 	};
 
+	backlight: backlight {
+		compatible = "pwm-backlight";
+
+		enable-gpios = <&gpio TEGRA_GPIO(D, 4) GPIO_ACTIVE_HIGH>;
+		power-supply = <&vdd_bl_reg>;
+		pwms = <&pwm 2 5000000>;
+
+		brightness-levels = <0 4 8 16 32 64 128 255>;
+		default-brightness-level = <6>;
+	};
+
 	clocks {
 		compatible = "simple-bus";
 		#address-cells = <1>;
@@ -538,6 +576,16 @@
 			linux,code = <KEY_POWER>;
 			gpio-key,wakeup;
 		};
+	};
+
+	panel: panel {
+		compatible = "auo,b101ew05", "simple-panel";
+
+		power-supply = <&vdd_pnl_reg>;
+		enable-gpios = <&gpio TEGRA_GPIO(B, 2) GPIO_ACTIVE_HIGH>;
+
+		backlight = <&backlight>;
+		ddc-i2c-bus = <&lvds_ddc>;
 	};
 
 	regulators {
