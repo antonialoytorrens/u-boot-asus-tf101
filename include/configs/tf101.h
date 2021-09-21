@@ -21,6 +21,7 @@
 /* Configurate from PER on eMMC */
 #undef CONFIG_BOOTCOMMAND
 #define CONFIG_BOOTCOMMAND \
+	"echo Loading BCT;" \
 	"if fatload mmc 0:5 ${scriptaddr} uboot-transformer.cmd; then" \
 	"env import -t -r ${scriptaddr} ${filesize}; else" \
 	"echo Boot Configuration NOT FOUND!; fi;" \
