@@ -23,9 +23,9 @@
 #undef CONFIG_BOOTCOMMAND
 #define CONFIG_BOOTCOMMAND \
 	"echo Loading BCT;" \
-	"if fatload mmc 0:5 ${script_addr_r} uboot-transformer.cmd; then" \
-	"env import -t -r ${script_addr_r} ${filesize}; else" \
-	"echo Boot Configuration NOT FOUND!; fi;" \
+	"if fatload mmc 0:5 ${script_addr_r} uboot-transformer.cmd;" \
+	"then env import -t -r ${script_addr_r} ${filesize};" \
+	"else echo Boot Configuration NOT FOUND!; fi;" \
 	"echo Loading DTB;" \
 	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${dtb_addr_r} ${dtb_file};" \
 	"echo Loading Kernel;" \
