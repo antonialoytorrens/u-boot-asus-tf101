@@ -26,11 +26,11 @@
 	"env import -t -r ${scriptaddr} ${filesize}; else" \
 	"echo Boot Configuration NOT FOUND!; fi;" \
 	"echo Loading DTB;" \
-	"${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${dtb_addr_r} ${dtb_file};" \
+	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${dtb_addr_r} ${dtb_file};" \
 	"echo Loading Kernel;" \
-	"${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${kernel_addr_r} ${kernel_file};" \
+	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${kernel_addr_r} ${kernel_file};" \
 	"echo Loading Initramfs;" \
-	"${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${ramdisk_addr_r} ${ramdisk_file};" \
+	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${ramdisk_addr_r} ${ramdisk_file};" \
 	"echo Booting Kernel;" \
 	"run bootkernel;"
 
