@@ -17,7 +17,10 @@
 	"script_addr_r=0x1000\0" \
 	"kernel_addr_r=0x12000000\0" \
 	"dtb_addr_r=0x13000000\0" \
-	"ramdisk_addr_r=0x14000000\0"
+	"ramdisk_addr_r=0x14000000\0" \
+	"bootkernel=bootz ${kernel_addr_r} - ${dtb_addr_r}\0" \
+	"bootrdkernel=bootz ${kernel_addr_r} ${ramdisk_addr_r} ${dtb_addr_r}\0"
+
 
 /* Configurate from PER on eMMC */
 #undef CONFIG_BOOTCOMMAND
@@ -27,13 +30,15 @@
 	"then env import -t -r ${script_addr_r} ${filesize};" \
 	"else echo Boot Configuration NOT FOUND!; fi;" \
 	"echo Loading DTB;" \
-	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${dtb_addr_r} ${dtb_file};" \
+	"${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${dtb_addr_r} ${dtb_file};" \
 	"echo Loading Kernel;" \
-	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${kernel_addr_r} ${kernel_file};" \
+	"${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${kernel_addr_r} ${kernel_file};" \
 	"echo Loading Initramfs;" \
-	"fatload ${dev_type} ${mmcdev}:${mmcpart} ${ramdisk_addr_r} ${ramdisk_file};" \
+	"if ${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${ramdisk_addr_r} ${ramdisk_file};" \
+	"then setenv rd yes; else setenv rd no; fi;" \
 	"echo Booting Kernel;" \
-	"run bootkernel;"
+	"if test ${rd} = yes; then run bootrdkernel;" \
+	"else run bootkernel; fi;"
 
 /* Board-specific serial config */
 #define CONFIG_TEGRA_ENABLE_UARTD
