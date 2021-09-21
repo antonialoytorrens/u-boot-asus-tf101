@@ -31,7 +31,7 @@
 	"echo Loading Initramfs;" \
 	"${fs_type} ${dev_type} ${mmcdev}:${mmcpart} ${ramdisk_addr_r} ${ramdisk_file};" \
 	"echo Booting Kernel;" \
-	"run bootkernel"
+	"run bootkernel;"
 
 /* Board-specific serial config */
 #define CONFIG_TEGRA_ENABLE_UARTD
