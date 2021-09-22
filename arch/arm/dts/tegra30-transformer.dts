@@ -3,20 +3,18 @@
 #include "tegra30.dtsi"
 
 / {
-	model = "ASUS Transformer";
+	model = "ASUS Transformer Tablet";
 	compatible = "asus,transformer", "nvidia,tegra30";
 
 	chosen {
-		stdout-path = "serial0:115200n8";
+		stdout-path = &uarta;
 	};
 
 	aliases {
 		mmc0 = &sdmmc4;	/* eMMC */
 		mmc1 = &sdmmc1; /* uSD slot */
 
-		usb0 = &dock_usb;
-
-		serial0 = &uarta;
+		usb0 = &usb3; /* Dock USB */
 	};
 
 	memory {
@@ -35,8 +33,10 @@
 
 	sdmmc1: mmc@78000000 {
 		status = "okay";
-		cd-gpios = <&gpio TEGRA_GPIO(I, 5) GPIO_ACTIVE_LOW>;
 		bus-width = <4>;
+
+		cd-gpios = <&gpio TEGRA_GPIO(I, 5) GPIO_ACTIVE_LOW>;
+		power-gpios = <&gpio TEGRA_GPIO(D, 7) GPIO_ACTIVE_HIGH>;
 	};
 
 	sdmmc4: sdhci@78000600 {
@@ -46,7 +46,11 @@
 	};
 
 	/* Dock's USB port */
-	dock_usb: usb@7d008000 {
+	usb3: usb@7d008000 {
+		status = "okay";
+	};
+
+	usb-phy@7d008000 {
 		status = "okay";
 	};
 
