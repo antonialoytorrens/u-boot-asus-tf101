@@ -21,28 +21,37 @@
 *  3. eMMC
 *
 *  NOTE: sleep 5 seconds before booting, so the user can read
+*
+*  When running `source ${scriptaddr}`, file needs to be boot.scr (executable).
+*  uboot-script.cmd is not valid.
 */
 #undef CONFIG_BOOTCOMMAND
 #define CONFIG_BOOTCOMMAND \
 	"echo Boot order: 1. USB, 2. MicroSD, 3. eMMC;" \
 	"echo NOTICE: If you have an SD Card attached to the TF1O1 dock, please disconnect it and reboot.;" \
 	"sleep 5;" \
-	"echo Searching for uboot-script.cmd...;" \
-	"if load usb 0:1 ${scriptaddr} uboot-script.cmd; then " \
-		"echo uboot-script.cmd found in first USB.;" \
-		"echo Running uboot-script.cmd...;" \
+	"echo Searching for boot.scr...;" \
+	"if load usb 0:1 ${scriptaddr} boot.scr; then " \
+		"setenv dev_type usb;" \
+		"setenv bootdev 0;" \
+		"echo boot.scr found in first USB.;" \
+		"echo Running boot.scr...;" \
 		"sleep 5;" \
-		"env import -t -r ${scriptaddr} ${filesize};" \
-	"elif load usb 1:1 ${scriptaddr} uboot-script.cmd; then " \
-		"echo uboot-script.cmd found in second USB.;" \
-		"echo Running uboot-script.cmd...;" \
+		"source ${scriptaddr};" \
+	"elif load usb 1:1 ${scriptaddr} boot.scr; then " \
+		"setenv dev_type usb;" \
+		"setenv bootdev 1;" \
+		"echo boot.scr found in second USB.;" \
+		"echo Running boot.scr...;" \
 		"sleep 5;" \
-		"env import -t -r ${scriptaddr} ${filesize};" \
-	"elif load mmc 1:1 ${scriptaddr} uboot-script.cmd; then " \
-		"echo uboot-script.cmd found in MicroSD card.;" \
-		"echo Running uboot-script.cmd...;" \
+		"source ${scriptaddr};" \
+	"elif load mmc 1:1 ${scriptaddr} boot.scr; then " \
+		"setenv dev_type mmc;" \
+		"setenv bootdev 1;" \
+		"echo boot.scr found in MicroSD card.;" \
+		"echo Running boot.scr;" \
 		"sleep 5;" \
-		"env import -t -r ${scriptaddr} ${filesize};" \
+		"source ${scriptaddr};" \
 	"else " \
 		"echo Boot Configuration NOT FOUND!; " \
 	"fi;"
