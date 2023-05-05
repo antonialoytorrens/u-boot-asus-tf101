@@ -484,15 +484,11 @@
 	usb1: usb@c5000000 {
 		status = "okay";
 		dr_mode = "otg";
-		nvidia,vbus-gpio =
-			<&gpio TEGRA_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
 	};
 
 	/* Dock's USB port */
 	usb3: usb@c5008000 {
 		status = "okay";
-		nvidia,vbus-gpio =
-			<&gpio TEGRA_GPIO(D, 3) GPIO_ACTIVE_HIGH>;
 	};
 
 	sdmmc3: sdhci@c8000400 {
@@ -501,7 +497,7 @@
 
 		cd-gpios = <&gpio TEGRA_GPIO(I, 5) GPIO_ACTIVE_LOW>;
 		wp-gpios = <&gpio TEGRA_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-		power-gpios = <&gpio TEGRA_GPIO(T, 3) GPIO_ACTIVE_HIGH>;
+		power-gpios = <&gpio TEGRA_GPIO(I, 6) GPIO_ACTIVE_HIGH>;
 
 		vmmc-supply = <&vdd_3v3_sys>;
 		vqmmc-supply = <&vdd_3v3_sys>;
@@ -512,8 +508,6 @@
 		bus-width = <8>;
 		non-removable;
 
-		power-gpios = <&gpio TEGRA_GPIO(I, 6) GPIO_ACTIVE_HIGH>;
-
 		vmmc-supply = <&vcore_emmc>;
 		vqmmc-supply = <&vdd_3v3_sys>;
 	};
@@ -522,7 +516,7 @@
 		compatible = "pwm-backlight";
 
 		enable-gpios = <&gpio TEGRA_GPIO(D, 4) GPIO_ACTIVE_HIGH>;
-		power-supply = <&vdd_5v0_bl>;
+		power-supply = <&vdd_3v3_sys>;
 		pwms = <&pwm 2 4000000>;
 
 		brightness-levels = <1 35 70 105 140 175 210 255>;
@@ -606,15 +600,6 @@
 		regulator-min-microvolt = <2800000>;
 		regulator-max-microvolt = <2800000>;
 		gpio = <&gpio TEGRA_GPIO(C, 6) GPIO_ACTIVE_HIGH>;
-		enable-active-high;
-	};
-
-	vdd_5v0_bl: regulator-bl {
-		compatible = "regulator-fixed";
-		regulator-name = "vdd_backlight";
-		regulator-min-microvolt = <2800000>;
-		regulator-max-microvolt = <2800000>;
-		gpio = <&gpio TEGRA_GPIO(W, 0) GPIO_ACTIVE_HIGH>;
 		enable-active-high;
 	};
 };
