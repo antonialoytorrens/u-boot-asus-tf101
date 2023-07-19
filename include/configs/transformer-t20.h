@@ -30,6 +30,7 @@
 	"then bootmenu; fi;" \
 	"run bootcmd_mmc1;" \
 	"run bootcmd_mmc0;" \
+        "sleep 10;" \
 	"poweroff;"
 
 #endif /* __CONFIG_H */
